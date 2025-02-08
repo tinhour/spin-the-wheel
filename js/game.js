@@ -3,7 +3,7 @@ var wheel = document.getElementById('wheel'); // 转盘
     var luckDrawCountDom = document.querySelector('.luckDrawCount span'); // 抽奖次数dom
     // 转盘游戏属性
     var gameState = false;          //  游戏状态
-    var luckDrawCount = 3;         //  抽奖次数
+    var luckDrawCount = 0;         //  抽奖次数
     var rotateZPositionCount = 0;   //  当前转盘的rotateZPosition值
     var preUseRotateZ = 0;          //  上一次已抽奖中奖奖品的RotateZ
     var rotateZ = 360;              //  一圈360deg
@@ -52,11 +52,40 @@ var wheel = document.getElementById('wheel'); // 转盘
         //  弹出中奖信息
         setTimeout(() => {
             gameState = false; // 设置游戏当前状态
-            alert(prize[rotateZPositionIndex].title+ '\r\n' + prize[rotateZPositionIndex].prize);
+            onDrawComplete(rotateZPositionIndex);
         }, runTime*1000);
 
     }
 
+    // 添加一个统一的消息发送接口
+    function sendMessageToNative(message) {
+        try {
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.native) {
+                // iOS
+                window.webkit.messageHandlers.native.postMessage(message);
+            } else if (window.Android && typeof window.Android.sendMessage === 'function') {
+                // Android
+                window.Android.sendMessage(message);
+            } else {
+                console.log('未检测到原生环境', message);
+            }
+        } catch (error) {
+            console.error('向原生发送消息时出错:', error);
+        }
+    }
+
+    // 修改 onDrawComplete 函数
+    function onDrawComplete(rotateZPositionIndex) {
+        // 弹出中奖信息
+        alert(prize[rotateZPositionIndex].title + '\r\n' + prize[rotateZPositionIndex].prize);
+
+        // 使用统一接口发送消息
+        sendMessageToNative({
+            type: 'drawResult',
+            index: rotateZPositionIndex,
+            prize: prize[rotateZPositionIndex]
+        });
+    }
 
     // 开始游戏
     arrow.addEventListener('click', function(){
@@ -73,4 +102,18 @@ var wheel = document.getElementById('wheel'); // 转盘
         // run game
         gameAction(rotateZPositionIndex);
     }, false)
+    
+    // 假设抽奖次数是通过 JavaScript Bridge 传递的
+    function setLuckDrawCount(count) {
+        luckDrawCount = count; // 将原生应用传来的抽奖次数存储在变量中
+        document.querySelector('.luckDrawCount span').innerText = luckDrawCount; // 更新页面显示
+    }
+
+    // 监听来自原生应用的消息
+    window.addEventListener('message', function(event) {
+        if (event.origin !== "你的原生应用的域名") return; // 确保消息来源可信
+        if (event.data.type === 'luckDrawCount') {
+            setLuckDrawCount(event.data.count); // 设置抽奖次数
+        }
+    });
     
