@@ -42,6 +42,64 @@ body{
 .game .wheel-box #arrow{width:1.55rem; height:2.21rem;position: absolute; top:0; left:0; right:0; bottom:.6rem; margin: auto; z-index: 2; background: url('../images/game-arrow.png') center center no-repeat; background-size: 1.55rem 2.21rem;}
 .game .luckDrawCount{text-align: center; color: #fff; font-size: .28rem;position: relative; top:-.5rem;}
 
+/* 添加加载动画 */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transition: opacity 0.3s ease-out;
+}
+
+.loading.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #77305f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 添加转盘动画优化 */
+#wheel {
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* 添加响应式设计 */
+@media screen and (max-width: 320px) {
+    .game .wheel-box {
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
+/* 添加触摸反馈 */
+#arrow {
+    transition: transform 0.1s ease;
+}
+
+#arrow:active {
+    transform: scale(0.95);
+}
+
 
 
 

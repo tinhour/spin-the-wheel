@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="description" content="幸运大转盘抽奖游戏">
+    <meta name="theme-color" content="#77305f">
+      <!-- 预加载关键资源 -->
+    <link rel="preload" href="images/game-wheel.png" as="image">
+    <link rel="preload" href="images/game-arrow.png" as="image">
     <title>幸运大转盘</title>
     <link rel="stylesheet" href="./css/style.css" />
     <script>
@@ -21,12 +24,16 @@
     </script>
 </head>
 <body>
+    <!-- 添加加载动画 -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
 
     <div class="game">
         <div class="title">
             <img src="images/game-title.png" alt="">  
         </div>
-        <div class="luckDrawCount">你有<span>0</span>次抽奖机会</div>
+        <div class="luckDrawCount">你有<span>3</span>次抽奖机会</div>
         <div class="wheel-box">
             <div id="wheel"></div>
             <div id="arrow"></div>
