@@ -104,10 +104,21 @@ function gameAction(rotateZPositionIndex) {
     }, { once: true });
 }
 
+// 显示模态框
+function showModal(message) {
+    document.getElementById('modalMessage').innerText = message; // 设置模态框内容
+    document.getElementById('modal').style.display = 'block'; // 显示模态框
+}
+
+// 关闭模态框
+document.getElementById('modalClose').onclick = function() {
+    document.getElementById('modal').style.display = 'none'; // 隐藏模态框
+}
+
 // 抽奖完成处理
 function onDrawComplete(rotateZPositionIndex) {
     // 显示中奖信息
-    alert(PRIZES[rotateZPositionIndex].title + '\r\n' + PRIZES[rotateZPositionIndex].prize);
+    showModal(PRIZES[rotateZPositionIndex].title + '\r\n' + PRIZES[rotateZPositionIndex].prize);
 
     // 发送结果给原生应用
     sendMessageToNative({
@@ -137,7 +148,7 @@ arrow.addEventListener('click', function(e) {
     // 游戏状态检查
     if (gameState) return;
     if (luckDrawCount <= 0) {
-        alert('Sorry 您没有抽奖机会了');
+        showModal('Sorry 您没有抽奖机会了'); // 显示没有抽奖机会的提示
         return;
     }
 
@@ -161,7 +172,7 @@ window.addEventListener('message', function(event) {
 
 // 监听网络状态
 window.addEventListener('online', () => console.log('网络已连接'));
-window.addEventListener('offline', () => alert('网络连接已断开，请检查网络设置'));
+window.addEventListener('offline', () => showModal('网络连接已断开，请检查网络设置')); // 显示网络断开的提示
 
 // 监听资源加载
 window.addEventListener('load', function() {
