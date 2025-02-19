@@ -6,7 +6,8 @@
     <meta name="description" content="幸运大转盘抽奖游戏">
     <meta name="theme-color" content="#77305f">
       <!-- 预加载关键资源 -->
-    <link rel="preload" href="images/game-wheel.png" as="image">
+    <link rel="preload" href="images/game-bg.png" as="image">
+    <link rel="preload" href="images/wheel-bg.png" as="image">
     <link rel="preload" href="images/game-arrow.png" as="image">
     <title>幸运大转盘</title>
     <link rel="stylesheet" href="./css/style.css" />
@@ -43,7 +44,14 @@
         </div>
         <div class="luckDrawCount">你有<span>3</span>次抽奖机会</div>
         <div class="wheel-box">
-            <div id="wheel"></div>
+            <div id="wheel">
+                <div class="wheel-inner">
+                    <div id="prize-template" class="prize-part" style="display: none;">
+                        <div class="prize-bg"></div>
+                        <div class="prize-text"></div>
+                    </div>
+                </div>
+            </div>
             <div id="arrow"></div>
         </div>
     </div>

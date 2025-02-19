@@ -4,42 +4,71 @@ const wheel = document.getElementById('wheel');
 const arrow = document.getElementById('arrow');
 const luckDrawCountDom = document.querySelector('.luckDrawCount span');
 
-// 游戏配置
-const ROTATE_Z = 360;              // 一圈360度
-const ROTATE_Z_COUNT = 10;         // 旋转圈数的倍数
-const RUN_TIME = 6;                // 游戏过渡时间
-const ROTATE_Z_POSITIONS = [22.5, 157.5, 112.5, 67.5, 202.5];  // 奖品位置
-
-// 游戏状态
-let gameState = false;             // 游戏状态
-let luckDrawCount = 3;             // 抽奖次数
-let rotateZPositionCount = 0;      // 当前转盘的rotateZ值
-let preUseRotateZ = 0;             // 上一次已抽奖中奖奖品的RotateZ
-let lastClickTime = 0;             // 上次点击时间（防作弊用）
-
 // 奖品配置
 const PRIZES = [
     {
         title: '手气不错哟～恭喜获得',
-        prize: '100元红包', 
+        prize: '一等奖', 
     },
     {
         title: '手气不错哟～恭喜获得',
-        prize: '优惠券礼包',
+        prize: '二等奖',
     },
     {
         title: '手气不错哟～恭喜获得',
-        prize: '5元代金券',
+        prize: '三等奖',
+    },
+    {
+        title: '下次再来',
+        prize: '谢谢惠顾',
     },
     {
         title: '手气不错哟～恭喜获得',
-        prize: '1元红包',
+        prize: '四等奖',
     },
     {
         title: '手气不错哟～恭喜获得',
-        prize: '优惠券礼包',
+        prize: '五等奖',
     },
+    {
+        title: '手气不错哟～恭喜获得',
+        prize: '六等奖',
+    },
+    {
+        title: '再来一次',
+        prize: '谢谢惠顾',
+    }
 ];
+// const PRIZES = [];
+// for(var i=1;i<=10;i++){
+//     PRIZES.push({
+//         title: i.toString(),
+//         prize:i.toString(),
+//     })
+// }
+// 转盘颜色配置
+const COLORS = ["#f31f49", "#fff7d7", "#a71d77"];
+const TEXT_COLORS = ["#f3f1f1", "#a8213c", "#f3f1f1"];
+
+// 游戏配置
+const ROTATE_Z = 360;              // 一圈360度
+const ROTATE_Z_COUNT = 10;         // 旋转圈数的倍数
+const RUN_TIME = 6;                // 游戏过渡时间
+// 根据奖品数量计算每个奖品的角度位置
+const PRIZE_COUNT = PRIZES.length;
+const PRIZE_ANGLE = 360 / PRIZE_COUNT;  // 每个奖品占的角度
+// 计算每个奖品的指针指向角度（从顶部开始，顺时针计算）
+const ROTATE_Z_POSITIONS = Array.from({ length: PRIZE_COUNT }, (_, i) => {
+    // 从0度开始，顺时针旋转，加上半个扇形的偏移使指针指向奖品中心
+    return i * PRIZE_ANGLE + PRIZE_ANGLE / 2;
+});
+
+// 游戏状态
+let gameState = false;             // 游戏状态
+let luckDrawCount = 3;             // 抽奖次数
+let currentRotation = 0;           // 当前转盘的旋转角度
+let lastRotation = 0;             // 上次转盘的旋转角度
+let lastClickTime = 0;             // 上次点击时间（防作弊用）
 
 // ================ 2. 工具函数 ================
 // 防抖函数
@@ -79,18 +108,51 @@ function sendMessageToNative(message) {
 }
 
 // ================ 3. 游戏核心逻辑 ================
+// 初始化转盘
+function initWheel() {
+    const wheelInner = document.querySelector('.wheel-inner');
+    const template = document.querySelector('#prize-template');
+    const perAngle = 360 / PRIZES.length;
+    
+    PRIZES.forEach((prize, index) => {
+        const node = template.cloneNode(true);
+        node.style.display = 'block';
+        // 扇形区块从顶部开始，顺时针排列
+        node.style.transform = `rotateZ(${perAngle/2 - 90 + perAngle * index}deg)`;
+        
+        // 设置背景色和文字颜色
+        node.querySelector('.prize-bg').style.background = COLORS[index % COLORS.length];
+        node.querySelector('.prize-text').style.color = TEXT_COLORS[index % TEXT_COLORS.length];
+        
+        // 设置文字
+        node.querySelector('.prize-text').textContent = prize.prize;
+        
+        // 设置扇形区域
+        const p = perAngle / 2;
+        const d = Math.tan(p * Math.PI / 180) * 100;
+        const x = (100 - d) / 2;
+        node.style.clipPath = `polygon(0% 50%, 100% ${x}%, 100% ${100 - x}%)`;
+        
+        wheelInner.appendChild(node);
+    });
+}
+
 // 游戏动作执行
 function gameAction(rotateZPositionIndex) {
-    // 转盘位置计算
-    const toRotateZCount = (rotateZPositionCount - preUseRotateZ + ROTATE_Z_POSITIONS[rotateZPositionIndex]) + ROTATE_Z * ROTATE_Z_COUNT;
-    
+    // 计算目标角度
+    const targetAngle = ROTATE_Z_POSITIONS[rotateZPositionIndex];
+    // 计算需要旋转的总角度
+    const additionalRotation = ROTATE_Z * ROTATE_Z_COUNT;  // 额外旋转的圈数
+    // 计算新的总旋转角度：当前角度 + 额外圈数 + 目标角度的补角 - 上次旋转的补角度
+    const totalRotation =  currentRotation - additionalRotation - targetAngle + lastRotation;
     // 设置转盘动画
-    wheel.style.transition = `transform ${RUN_TIME}s ease-in-out 0s`;
-    wheel.style.transform = `rotateZ(${toRotateZCount}deg)`;
+    requestAnimationFrame(() => {
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
+    });
     
     // 更新状态
-    preUseRotateZ = ROTATE_Z_POSITIONS[rotateZPositionIndex];
-    rotateZPositionCount = toRotateZCount;
+    currentRotation = totalRotation;
+    lastRotation = targetAngle;
     luckDrawCount--;
     
     // 更新UI
@@ -154,7 +216,7 @@ arrow.addEventListener('click', function(e) {
 
     // 开始游戏
     gameState = true;
-    const rotateZPositionIndex = Math.floor(Math.random() * 5);
+    const rotateZPositionIndex = Math.floor(Math.random() * PRIZE_COUNT);
     gameAction(rotateZPositionIndex);
 }, false);
 
@@ -177,7 +239,7 @@ window.addEventListener('offline', () => showModal('网络连接已断开，请�
 // 监听资源加载
 window.addEventListener('load', function() {
     const images = [
-        './images/game-wheel.png',
+        './images/wheel-bg.png',
         './images/game-arrow.png',
         './images/game-bg.png'
     ];
@@ -200,6 +262,8 @@ window.addEventListener('load', function() {
         const loading = document.getElementById('loading');
         if (loading) loading.remove();
     });
+
+    initWheel();
 });
 
 // 初始化安全检查
