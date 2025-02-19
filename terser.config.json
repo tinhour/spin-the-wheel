@@ -1,0 +1,36 @@
+{
+  "compress": {
+    "pure_funcs": ["console.log", "console.info", "console.debug", "console.warn"],
+    "pure_getters": true,
+    "unsafe": true,
+    "unsafe_comps": true,
+    "unsafe_math": true,
+    "unsafe_proto": true,
+    "unsafe_regexp": true,
+    "conditionals": true,
+    "evaluate": true,
+    "drop_console": true,
+    "drop_debugger": true,
+    "expression": true,
+    "global_defs": {
+      "@alert": "console.log"
+    },
+    "passes": 3,
+    "dead_code": true,
+    "toplevel": true
+  },
+  "mangle": {
+    "eval": true,
+    "toplevel": true,
+    "properties": {
+      "regex": "/^_/"
+    },
+    "reserved": ["window", "document"]
+  },
+  "output": {
+    "ascii_only": true,
+    "beautify": false,
+    "comments": false,
+    "webkit": true
+  }
+} 

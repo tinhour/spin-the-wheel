@@ -1,0 +1,21 @@
+{
+  "name": "lucky-wheel",
+  "version": "1.0.0",
+  "scripts": {
+    "clean": "rimraf dist",
+    "copy-assets": "copyfiles \"images/**/*\" \"css/**/*\" dist",
+    "minify-js": "terser js/game.js -c passes=3 -m reserved=['window'] --mangle-props regex=/^_/ -o dist/js/game.min.js --config-file terser.config.json",
+    "minify-css": "cleancss -o dist/css/style.min.css css/style.css",
+    "minify-html": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true index.html -o dist/index.html",
+    "build": "npm run clean && npm run copy-assets && npm run minify-js && npm run minify-css && npm run minify-html && node update-paths.js",
+    "serve": "http-server dist -p 8080"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "copyfiles": "^2.4.1",
+    "html-minifier": "^4.0.0",
+    "http-server": "^14.1.1",
+    "rimraf": "^5.0.5",
+    "terser": "^5.24.0"
+  }
+}
