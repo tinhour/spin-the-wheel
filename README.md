@@ -192,4 +192,3 @@ webView.evaluateJavascript("setLuckDrawCount($count)", null)
 - 添加动态生成奖品配置,根据传入的PRIZES传入的内容生成奖项的内容【done】
 - 添加更多交互方式，初始化时可以通过传入参数来决定交互方式，通过arguments付入奖品配置，通过callback返回结果
 - 增加打包输出到dist功能【done】
-- 增加单元测试功能
