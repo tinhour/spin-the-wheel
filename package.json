@@ -8,7 +8,10 @@
     "minify-css": "cleancss -o dist/css/style.min.css css/style.css",
     "minify-html": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true index.html -o dist/index.html",
     "build": "npm run clean && npm run copy-assets && npm run minify-js && npm run minify-css && npm run minify-html && node update-paths.js",
-    "serve": "http-server dist -p 8080"
+    "serve": "http-server dist -p 8080",
+    "component:dev:vue": "cd component && npm run dev:vue",
+    "component:dev:react": "cd component && npm run dev:react",
+    "component:build": "cd component && npm run build:component"
   },
   "devDependencies": {
     "clean-css-cli": "^5.6.2",
