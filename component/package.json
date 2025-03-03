@@ -66,5 +66,11 @@
     "typescript"
   ],
   "author": "tinhour",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tinhour/spin-the-wheel.git",
+    "directory": "component"
+  },
+  "homepage": "https://github.com/tinhour/spin-the-wheel/blob/main/component/"
 }

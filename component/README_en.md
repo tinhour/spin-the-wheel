@@ -176,3 +176,9 @@ npm run build
 ## License
 
 MIT 
+
+## Links
+
+- [GitHub Repository](https://github.com/tinhour/spin-the-wheel/blob/main/component/)
+- [Bug Report](https://github.com/tinhour/spin-the-wheel/issues)
+- [npm Package](https://www.npmjs.com/package/lucky-wheel-component)
