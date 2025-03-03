@@ -12,6 +12,21 @@ A simple and easy-to-use lucky wheel component that supports both Vue 3 and Reac
 - Responsive design
 - Complete event callbacks
 
+## Preview
+
+### Preview Animation
+![Wheel Animation](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenRecordingAnimation.gif)
+
+### Different Prize Quantity Effects
+6 Prize Style:
+
+![6 Prize](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenFor6items.png)
+
+8 Prize Style:
+
+![8 Prize](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenFor8items.png)
+
+
 ## Installation
 
 ```bash
@@ -19,6 +34,24 @@ npm install lucky-wheel-component
 ```
 
 ## Usage
+
+### Vue  import
+
+```javascript
+// default import Vue version
+import { LuckyWheel } from 'lucky-wheel-component';
+
+// Or explicitly specify Vue vesion
+import { LuckyWheel } from 'lucky-wheel-component/vue';
+```
+
+### React import
+
+```javascript
+// import React version
+import { LuckyWheel } from 'lucky-wheel-component/react';
+```
+
 
 ### Vue 3
 

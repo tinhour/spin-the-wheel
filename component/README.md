@@ -70,7 +70,7 @@ import { LuckyWheel } from 'lucky-wheel-component/vue';
 // 导入 React 版本
 import { LuckyWheel } from 'lucky-wheel-component/react';
 ```
-```
+
 
  ### Vue 3
  
