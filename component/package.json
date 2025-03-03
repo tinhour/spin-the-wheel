@@ -1,13 +1,27 @@
 {
   "name": "lucky-wheel-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lucky wheel component for Vue 3 and React",
   "main": "dist/vue/index.js",
   "module": "dist/vue/index.esm.js",
   "types": "dist/vue/index.d.ts",
-  "reactmain": "dist/react/index.js",
-  "reactmodule": "dist/react/index.esm.js",
-  "reacttypes": "dist/react/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue/index.esm.js",
+      "require": "./dist/vue/index.js",
+      "types": "./dist/vue/index.d.ts"
+    },
+    "./vue": {
+      "import": "./dist/vue/index.esm.js",
+      "require": "./dist/vue/index.js",
+      "types": "./dist/vue/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react/index.esm.js",
+      "require": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    }
+  },
   "files": [
     "dist",
     "README.md",

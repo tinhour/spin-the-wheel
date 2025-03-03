@@ -13,16 +13,16 @@
 ## 预览
 
 ### 动画效果
-![转盘动画](screenshot/screenRecordingAnimation.gif)
+![转盘动画](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenRecordingAnimation.gif)
 
 ### 不同奖品数量效果
 6个奖品样式：
 
-![6个奖品](screenshot/screenFor6items.png)
+![6个奖品](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenFor6items.png)
 
 8个奖品样式：
 
-![8个奖品](screenshot/screenFor8items.png)
+![8个奖品](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenFor8items.png)
 
 ## 功能特点
 
@@ -46,6 +46,32 @@
  
  ## 使用方法
  
+ ## 安装
+
+```bash
+npm install lucky-wheel-component
+```
+
+## 使用方法
+
+### Vue  引入
+
+```javascript
+// 默认导入 Vue 版本
+import { LuckyWheel } from 'lucky-wheel-component';
+
+// 或明确指定 Vue 版本
+import { LuckyWheel } from 'lucky-wheel-component/vue';
+```
+
+### React引入
+
+```javascript
+// 导入 React 版本
+import { LuckyWheel } from 'lucky-wheel-component/react';
+```
+```
+
  ### Vue 3
  
  ```vue
