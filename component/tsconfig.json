@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "declaration": true, // 生成声明文件
-    "declarationDir": "dist/vue", // 声明文件输出目录
-    "rootDir": "src/vue", // 源文件目录
+    "declarationDir": "dist", // 声明文件输出目录
+    "rootDir": "./src", // 修改为项目的根目录
     "useDefineForClassFields": true,
     "lib": [
       "ES2020",
@@ -18,10 +18,10 @@
     ],
     /* Bundler mode */
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
     "allowJs": true,
     /* Linting */
@@ -37,10 +37,12 @@
     }
   },
   "include": [
-    "examples/react",
-    "examples/vue",
-    "src/vue",
-    "src/react"
+    // "examples/react",
+    // "examples/vue",
+    // "examples/vue3",
+    // "src/vue",
+    // "src/vue3",
+    // "src/react"
   ],
   "references": [
     {

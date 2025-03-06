@@ -2,7 +2,7 @@
 
 [English](./README_en.md) | 简体中文
 
-一个精心设计的幸运转盘抽奖游戏，基于现代 Web 技术构建，提供流畅的动画效果和完整的抽奖体验。支持自定义奖品配置、动态修改转盘样式，支持 Vue 3 和 React。
+一个精心设计的幸运转盘抽奖游戏，基于现代 Web 技术构建，提供流畅的动画效果和完整的抽奖体验。支持自定义奖品配置、动态修改转盘样式，支持 Vue2/Vue 3 和 React。
 
 特别适合:
 - 营销活动和用户促活
@@ -32,7 +32,7 @@
  
  ## 技术特性
  
- - 支持 Vue 3 和 React
+ - 支持 Vue2/Vue 3 和 React
  - TypeScript 支持
  - 可自定义奖品、颜色和旋转效果
  - 响应式设计
@@ -60,8 +60,8 @@ npm install lucky-wheel-component
 // 默认导入 Vue 版本
 import { LuckyWheel } from 'lucky-wheel-component';
 
-// 或明确指定 Vue 版本
-import { LuckyWheel } from 'lucky-wheel-component/vue';
+// 或明确指定 Vue3 版本
+import { LuckyWheel } from 'lucky-wheel-component/vue3';
 ```
 
 ### React引入
@@ -114,11 +114,43 @@ import { LuckyWheel } from 'lucky-wheel-component/react';
  </script>
  ```
  
+ ### Vue 3 Composition API
+ 
+ ```vue
+ <template>
+   <LuckyWheel 
+     :prizes="prizes"
+     :initialDrawCount="3"
+     @on-start="handleStart"
+     @on-complete="handleComplete"
+   />
+ </template>
+ 
+ <script setup lang="ts">
+ import { ref } from 'vue'
+ import { LuckyWheel } from 'lucky-wheel-component/vue3'
+ 
+ const prizes = ref([
+   { title: '恭喜获得', prize: '一等奖' },
+   { title: '恭喜获得', prize: '二等奖' },
+   // ... 更多奖品
+ ])
+ 
+ const handleStart = ({ prizeIndex, drawCount }) => {
+   console.log('开始抽奖', prizeIndex, drawCount)
+ }
+ 
+ const handleComplete = ({ index, prize }) => {
+   console.log('抽奖完成', index, prize)
+ }
+ </script>
+ ```
+ 
  ### React
  
  ```tsx
  import React from 'react';
- import { LuckyWheel } from 'lucky-wheel-component';
+ import { LuckyWheel } from 'lucky-wheel-component/react';
  
  const App: React.FC = () => {
    const prizes = [

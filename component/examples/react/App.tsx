@@ -22,7 +22,7 @@ const App: React.FC = () => {
     );
   };
 
-  const handleComplete = ({ index, prize }: { index: number; prize: { title: string; prize: string } }) => {
+  const handleComplete = ({ prize }: { prize: { title: string; prize: string } }) => {
     setEventLog(prev => 
       `抽奖完成: 获得 ${prize.prize}\n${prev}`
     );

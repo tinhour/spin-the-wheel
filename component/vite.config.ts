@@ -5,6 +5,7 @@ import path from 'path';
 
 export default defineConfig(({ mode }) => {
   const isVue = mode.includes('vue');
+  const isVue3 = mode === 'vue3';
   
   return {
     plugins: isVue ? [
@@ -17,11 +18,11 @@ export default defineConfig(({ mode }) => {
         }
       })
     ] : [react()],
-    root: isVue ? 'examples/vue' : 'examples/react',
+    root: isVue ? `examples/${isVue3 ? 'vue3' : 'vue'}` : 'examples/react',
     base: './',
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, isVue ? './src/vue' : './src/react'),
+        '@': path.resolve(__dirname, isVue ? (isVue3 ? './src/vue3' : './src/vue') : './src/react'),
         'vue': path.resolve(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js')
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
@@ -30,7 +31,7 @@ export default defineConfig(({ mode }) => {
       include: ['vue']
     },
     build: {
-      outDir: isVue ? './dist/vue' : './dist/react'
+      outDir: isVue ? `./dist/${isVue3 ? 'vue3' : 'vue'}` : './dist/react'
     }
   };
 }); 

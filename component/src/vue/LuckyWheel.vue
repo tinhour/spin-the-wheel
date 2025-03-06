@@ -50,8 +50,8 @@ export default defineComponent({
       default: () => ["#f3f1f1", "#a8213c", "#f3f1f1"]
     },
     // 额外旋转圈数
-    additionalTurns:{
-      type:Number,
+    additionalTurns: {
+      type: Number,
       default: 10
     },
     // 提示文字配置
@@ -74,7 +74,7 @@ export default defineComponent({
   },
 
   methods: {
-    getPrizeStyle(index) {
+    getPrizeStyle(index: number) {
       const perAngle = 360 / this.prizes.length;
       return {
         transform: `rotateZ(${perAngle/2 - 90 + perAngle * index}deg)`,
@@ -82,7 +82,7 @@ export default defineComponent({
       }
     },
 
-    getClipPath(perAngle) {
+    getClipPath(perAngle: number) {
       const p = perAngle / 2;
       const d = Math.tan(p * Math.PI / 180) * 100;
       const x = (100 - d) / 2;
@@ -112,8 +112,10 @@ export default defineComponent({
       const totalRotation = this.currentRotation - additionalRotation - targetAngle + this.lastRotation;
 
       // 应用旋转动画
-      const wheelElement = this.$refs.wheelRef;
-      wheelElement.style.transform = `rotate(${totalRotation}deg)`;
+      const wheelElement = this.$refs.wheelRef as HTMLElement;
+      if (wheelElement) {
+        wheelElement.style.transform = `rotate(${totalRotation}deg)`;
+      }
 
       // 动画结束后处理
       setTimeout(() => {
@@ -128,12 +130,12 @@ export default defineComponent({
       this.$emit('on-start', { prizeIndex, drawCount: this.drawCount });
     },
 
-    getPrizeAngle(index) {
+    getPrizeAngle(index: number) {
       const perAngle = 360 / this.prizes.length;
       return index * perAngle + perAngle / 2;
     },
 
-    showResult(prizeIndex) {
+    showResult(prizeIndex: number) {
       const prize = this.prizes[prizeIndex];
       this.$emit('on-complete', { 
         index: prizeIndex, 
