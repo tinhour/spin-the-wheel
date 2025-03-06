@@ -1,20 +1,18 @@
 # Lucky Wheel Component
 
-A simple and easy-to-use lucky wheel component that supports both Vue 3 and React.
+[中文文档](./README.md) | English
 
-[中文文档](./README.md)
+A well-designed lucky wheel game component built with modern web technologies, providing smooth animations and a complete lottery experience. Supports customizable prize configurations, dynamic wheel style modifications, and is compatible with Vue2/Vue 3 and React.
 
-## Features
-
-- Support for Vue 3 and React
-- TypeScript support
-- Customizable prizes, colors, and rotation effects
-- Responsive design
-- Complete event callbacks
+Ideal for:
+- Marketing activities and user engagement
+- Membership reward systems
+- Game interaction scenarios
+- Holiday event lotteries
 
 ## Preview
 
-### Preview Animation
+### Animation Effect
 ![Wheel Animation](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenRecordingAnimation.gif)
 
 ### Different Prize Quantity Effects
@@ -26,6 +24,19 @@ A simple and easy-to-use lucky wheel component that supports both Vue 3 and Reac
 
 ![8 Prize](https://github.com/tinhour/spin-the-wheel/raw/main/screenshot/screenFor8items.png)
 
+## Features
+
+- Smooth wheel animation effects
+- Support for customizable prize configurations
+- Loading animation hints
+
+## Technical Features
+
+- Supports Vue2/Vue 3 and React
+- TypeScript support
+- Customizable prizes, colors, and rotation effects
+- Responsive design
+- Complete event callbacks
 
 ## Installation
 
@@ -35,25 +46,24 @@ npm install lucky-wheel-component
 
 ## Usage
 
-### Vue  import
+### Vue Import
 
 ```javascript
-// default import Vue version
+// Default import Vue version
 import { LuckyWheel } from 'lucky-wheel-component';
 
-// Or explicitly specify Vue vesion
-import { LuckyWheel } from 'lucky-wheel-component/vue';
+// Or explicitly specify Vue3 version
+import { LuckyWheel } from 'lucky-wheel-component/vue3';
 ```
 
-### React import
+### React Import
 
 ```javascript
-// import React version
+// Import React version
 import { LuckyWheel } from 'lucky-wheel-component/react';
 ```
 
-
-### Vue 3
+### Vue 2
 
 ```vue
 <template>
@@ -79,7 +89,7 @@ export default defineComponent({
       prizes: [
         { title: 'Congratulations', prize: 'First Prize' },
         { title: 'Congratulations', prize: 'Second Prize' },
-        // ... more prizes
+        // ...more prizes
       ]
     }
   },
@@ -95,17 +105,49 @@ export default defineComponent({
 </script>
 ```
 
+### Vue 3 Composition API
+
+```vue
+<template>
+  <LuckyWheel 
+    :prizes="prizes"
+    :initialDrawCount="3"
+    @on-start="handleStart"
+    @on-complete="handleComplete"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { LuckyWheel } from 'lucky-wheel-component/vue3'
+
+const prizes = ref([
+  { title: 'Congratulations', prize: 'First Prize' },
+  { title: 'Congratulations', prize: 'Second Prize' },
+  // ... more prizes
+])
+
+const handleStart = ({ prizeIndex, drawCount }) => {
+  console.log('Start drawing', prizeIndex, drawCount)
+}
+
+const handleComplete = ({ index, prize }) => {
+  console.log('Drawing complete', index, prize)
+}
+</script>
+```
+
 ### React
 
 ```tsx
 import React from 'react';
-import { LuckyWheel } from 'lucky-wheel-component';
+import { LuckyWheel } from 'lucky-wheel-component/react';
 
 const App: React.FC = () => {
   const prizes = [
     { title: 'Congratulations', prize: 'First Prize' },
     { title: 'Congratulations', prize: 'Second Prize' },
-    // ... more prizes
+    // ...more prizes
   ];
 
   const handleStart = ({ prizeIndex, drawCount }) => {
@@ -139,7 +181,6 @@ const App: React.FC = () => {
 | additionalTurns | number | 10 | Additional rotation turns |
 | colors | string[] | ['#f31f49', '#fff7d7', '#a71d77'] | Prize block background colors |
 | textColors | string[] | ['#f3f1f1', '#a8213c', '#f3f1f1'] | Prize text colors |
-| messages | object | { noChance: 'No more chances' } | Message configurations |
 
 ### Events
 
@@ -175,7 +216,7 @@ npm run build
 
 ## License
 
-MIT 
+MIT
 
 ## Links
 

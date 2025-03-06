@@ -72,7 +72,7 @@ import { LuckyWheel } from 'lucky-wheel-component/react';
 ```
 
 
- ### Vue 3
+ ### Vue 2
  
  ```vue
  <template>
